@@ -84,23 +84,23 @@ public class Board {
      * Throw an IllegalArgumentException if move's column is full on this Board.
      */
 	public void makeMove(Move move) {
-		int column = move.getColumn(); // column for the move
-
-		// find the "lowest" empty row in the column
-		int emptyRow = -1; // means column filled
+		int col = move.getColumn(); // column for the move
+		// find the "lowest" empty row in the col
+		int emptyRow = -1; // -ve means col filled
 		for (int rc = 0; rc < NUM_ROWS; rc++) {
-			if (getTile(rc, column) == null) // empty tile
+			if (getTile(rc, col) == null) // empty tile
 				emptyRow = rc;
 		}
 
 		System.out.println("debug call to makeMove with move '" + move + "'");
-		System.out.println("debug move in column " + column
-				+ " lowset empty row= " + emptyRow);
+		System.out.println("debug move is in column " + col);
+		System.out.println("debug lowset empty row " + emptyRow);
 
-		// TODO check for filled column
-		throw new UnsupportedOperationException(
-				"You need to implement makeMove before running the game.");
-
+		if (emptyRow == -1)
+			throw new IllegalArgumentException(
+					"Move to full column error. Details column: "+ col + "move: " + move);
+		// move is legal make it
+		board[emptyRow][col] = move.getPlayer();
 	}
 
 //        //check if the proposed move column is already filled 
