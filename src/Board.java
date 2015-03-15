@@ -1,8 +1,9 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class Board - An instance represents a grid of pieces from two opposing
+ * An instance represents a grid of pieces from two opposing
  * players in a game of Connect Four. The grid is 0-indexed first by rows
  * starting at the top, then by columns 0-indexed starting at the left.
  *
@@ -38,7 +39,6 @@ public class Board {
         board = new Player[NUM_ROWS][NUM_COLS];
     }
 
-
     /**
      * Constructor: a duplicate of Board b.
      */
@@ -46,7 +46,7 @@ public class Board {
         board = new Player[NUM_ROWS][NUM_COLS];
         for (int r = 0; r < NUM_ROWS; r++) {
             for (int c = 0; c < NUM_COLS; c++) {
-                this.board[r][c] = b.board[r][c];
+                board[r][c] = b.board[r][c];
             }
         }
     }
