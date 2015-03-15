@@ -1,10 +1,14 @@
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An instance represents a Solver that intelligently determines
+ * Class AI - An instance represents a Solver that intelligently determines
  * Moves using the Minimax algorithm.
+ *
+ * @authors Oliver Smart (MSc CS) & Daryl Smith (MSc IT)
+ * @version 20150314
  */
+
 public class AI implements Solver {
 
     private Player player; // the current player
@@ -27,9 +31,24 @@ public class AI implements Solver {
      * See Solver.getMoves for the specification.
      */
     @Override
-    public Move[] getMoves(Board b) {
-        // TODO
-        return null;
+    public Move[] getMoves(Board b) 
+    {
+    	//setup the move tree for this board, then determine the best possible move(s)
+    	State moveState = new State(this.player, b, null);
+    	createGameTree(moveState, depth);
+    	minimax(moveState);
+
+    	//produce list of move(s) with the highest rating
+    	ArrayList<Move> myMoves = new ArrayList<Move>();
+    	for (int i = 0; i < moveState.getChildren().length; i ++) 
+    	{
+    		if (moveState.getChildren()[i].getValue() == moveState.getValue()) 
+    		{
+    			myMoves.add(moveState.getChildren()[i].getLastMove());
+    		}
+    	}
+    	
+    	return myMoves.toArray(new Move[0]);   	
     }
 
     /**
@@ -43,11 +62,22 @@ public class AI implements Solver {
      * <p/>
      * Note: If s has a winner (four in a row), it should be a leaf.
      */
-    public static void createGameTree(State s, int d) {
+    public static void createGameTree(State s, int d) 
+    {
         // Note: This method must be recursive, recurse on d,
         // which should get smaller with each recursive call
+    	
+    	//d = 0: return, d > 0: recurse
+    	if (d == 0) 
+    	{
+    		return;
+    	}
 
-        // TODO
+		s.initializeChildren();
+    	for (int i = 0; i < s.getChildren().length; i++) 
+    	{
+    		createGameTree(s.getChildren()[i], d-1);    	
+    	}
     }
 
     /**
@@ -62,8 +92,41 @@ public class AI implements Solver {
      * Use the Minimax algorithm to assign a numerical value to each State of the
      * tree rooted at s, indicating how desirable that java.State is to this player.
      */
-    public void minimax(State s) {
-        // TODO
+    public void minimax(State s) 
+    {
+        //if s has no children, set s's value to evaluate s's board and return
+    	//if s has children, recurse through child nodes, calling minimax and picking the best value of the child nodes
+    	if (s.getChildren().length == 0) 
+    	{
+    		s.setValue(evaluateBoard(s.getBoard()));
+    		return;
+    	}
+    	
+    	int max = Integer.MIN_VALUE;
+    	int min = Integer.MAX_VALUE;
+    	
+    	for (int i = 0; i < s.getChildren().length; i++) 
+    	{   		
+    		minimax(s.getChildren()[i]);
+    		if (s.getChildren()[i].getValue() > max) 
+    		{
+    			max = s.getChildren()[i].getValue();
+    		}			
+    		if (s.getChildren()[i].getValue() < min) 
+    		{
+    			min = s.getChildren()[i].getValue();
+    		}			
+    	}
+    	
+    	//set best value of s based on who is to play
+    	if (s.getPlayer() == this.player) 
+    	{
+    		s.setValue(max);
+    	}
+    	else 
+    	{
+    		s.setValue(min);
+    	}
     }
 
     /**

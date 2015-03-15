@@ -1,4 +1,3 @@
-
 /**
  * A class to hold static methods about recursion.
  */
