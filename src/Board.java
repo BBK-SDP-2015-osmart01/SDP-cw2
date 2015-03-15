@@ -83,23 +83,41 @@ public class Board {
      * player into move's column on this Board.
      * Throw an IllegalArgumentException if move's column is full on this Board.
      */
-    public void makeMove(Move move) 
-    {
-        //check if the proposed move column is already filled 
-    	if (getTile(0, move.getColumn()) != null)
-        {
-        	throw new IllegalArgumentException ("The column you are attempting to move to is already full");
-        }
+	public void makeMove(Move move) {
+		int column = move.getColumn(); // column for the move
 
-        for(int i = NUM_ROWS-1; i >= 0; i--) 
-    	{
-    		if (getTile(i, move.getColumn()) == null) 
-    		{
-    			this.board[i][move.getColumn()] = move.getPlayer();
-    			break;
-    		}
-    	}
-    }
+		// find the "lowest" empty row in the column
+		int emptyRow = -1; // means column filled
+		for (int rc = 0; rc < NUM_ROWS; rc++) {
+			if (getTile(rc, column) == null) // empty tile
+				emptyRow = rc;
+		}
+
+		System.out.println("debug call to makeMove with move '" + move + "'");
+		System.out.println("debug move in column " + column
+				+ " lowset empty row= " + emptyRow);
+
+		// TODO check for filled column
+		throw new UnsupportedOperationException(
+				"You need to implement makeMove before running the game.");
+
+	}
+
+//        //check if the proposed move column is already filled 
+//    	if (getTile(0, move.getColumn()) != null)
+//        {
+//        	throw new IllegalArgumentException ("The column you are attempting to move to is already full");
+//        }
+//
+//        for(int i = NUM_ROWS-1; i >= 0; i--) 
+//    	{
+//    		if (getTile(i, move.getColumn()) == null) 
+//    		{
+//    			this.board[i][move.getColumn()] = move.getPlayer();
+//    			break;
+//    		}
+//    	}
+    
 
     /**
      * Return an array of all moves that can possibly be made by Player p on this
