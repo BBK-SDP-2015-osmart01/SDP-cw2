@@ -82,9 +82,23 @@ public class Board {
      * <p>
      * @author Oliver Smart (MSc CS) & Daryl Smith (MSc IT)
      */
-    public void makeMove(Move move) {
-        throw new UnsupportedOperationException("You need to implement makeMove before running the game.");
-    }
+    public void makeMove(Move move) 
+    {
+        //check if the proposed move column is already filled 
+    	if (getTile(0, move.getColumn()) != null)
+        {
+        	throw new IllegalArgumentException ("The column you are attempting to move to is already full");
+        }
+
+        for(int i = NUM_ROWS-1; i >= 0; i--) 
+    	{
+    		if (getTile(i, move.getColumn()) == null) 
+    		{
+    			this.board[i][move.getColumn()] = move.getPlayer();
+    			break;
+    		}
+    	}
+    }    
 
     /**
      * Return an array of all moves that can possibly be made by Player p on this
