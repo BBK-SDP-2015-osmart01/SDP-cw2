@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
@@ -26,7 +28,8 @@ public class JUnitTestBoardGetPossibleMoves {
 				new Move(red, 5), new Move(red, 6) };
 		assertThat("\nempty board\n" + empty
 				+ "So getPossibleMoves should return all 7 columns.",
-				possibleMoves, is(expectedMoves));
+				Arrays.asList(possibleMoves) + "",
+				is(Arrays.asList(expectedMoves) + ""));
 	}
 
 	@Test
@@ -44,7 +47,8 @@ public class JUnitTestBoardGetPossibleMoves {
 				new Move(plr, 5) };
 		assertThat("\nfill even columns\n" + board
 				+ "So getPossibleMoves should return odd columns.",
-				possibleMoves, is(expectedMoves));
+				Arrays.asList(possibleMoves) + "",
+				is(Arrays.asList(expectedMoves) + ""));
 	}
 
 	/**
@@ -52,8 +56,8 @@ public class JUnitTestBoardGetPossibleMoves {
 	 * specification:
 	 * <p>
 	 * If the board has a winner (four things of the same colour in a row), no
-	 * move is possible because the game is over. Specification says that
-	 * result should be empty array.
+	 * move is possible because the game is over. Specification says that result
+	 * should be empty array.
 	 */
 	@Test
 	public void testBoardWhereRedHasWon() {
@@ -64,8 +68,6 @@ public class JUnitTestBoardGetPossibleMoves {
 		board.makeMove(new Move(red, 1));
 		board.makeMove(new Move(red, 1));
 		board.makeMove(new Move(red, 1));
-		System.out.println("check board where red has cheated and won:\n"
-				+ board + "\n");
 		Move possibleMoves[] = board.getPossibleMoves(red);
 		Move expectedMoves[] = new Move[0]; // spec says empty
 		assertThat(
@@ -84,8 +86,6 @@ public class JUnitTestBoardGetPossibleMoves {
 		Player plr = Player.YELLOW;
 		fillBoardDraw(board);
 		// check that worked by printing it out
-		System.out.println("check board completely filled to a draw:\n" + board
-				+ "\n");
 		Move possibleMoves[] = board.getPossibleMoves(plr);
 		Move expectedMoves[] = new Move[0]; // empty array it is full
 		assertThat(
