@@ -107,11 +107,30 @@ public class Board {
      * Note: If the game is not over, the number of possible moves is the number
      * of columns that are not full. Thus, if all columns are full, return an
      * array of length 0.
+     * <p>
+     * @author Oliver Smart (MSc CS) & Daryl Smith (MSc IT)
      */
-    public Move[] getPossibleMoves(Player p) {
-        // TODO
-        return null;
+    public Move[] getPossibleMoves(Player p) 
+    {
+    	if (hasConnectFour() != null) 
+    	//board has a winner, return a zero length array
+    	{
+    		return new Move[0];   		
+    	}
+    	
+    	//setup an arraylist to store the possible moves
+    	ArrayList<Move> possibleMoves = new ArrayList<Move>();
+    	
+    	for (int i = 0; i < NUM_COLS; i++) 
+    	{
+    		if (getTile(0, i) == null) 
+    		{
+    			possibleMoves.add(new Move(p,i));
+    		}
+    	}
+    	return possibleMoves.toArray(new Move[0]);
     }
+
 
     /**
      * Return a representation of this board
