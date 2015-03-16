@@ -82,23 +82,21 @@ public class Board {
      * <p>
      * @author Oliver Smart (MSc CS) & Daryl Smith (MSc IT)
      */
-    public void makeMove(Move move) 
-    {
-        //check if the proposed move column is already filled 
-    	if (getTile(0, move.getColumn()) != null)
-        {
-        	throw new IllegalArgumentException ("The column you are attempting to move to is already full");
-        }
-
-        for(int i = NUM_ROWS-1; i >= 0; i--) 
-    	{
-    		if (getTile(i, move.getColumn()) == null) 
-    		{
-    			this.board[i][move.getColumn()] = move.getPlayer();
-    			break;
-    		}
-    	}
-    }    
+	public void makeMove(Move move) {
+		int col = move.getColumn(); // column for the move
+		// find the "lowest" empty row in col
+		int emptyRow = -1;
+		for (int rc = 0; rc < NUM_ROWS; rc++) {
+			if (getTile(rc, col) == null) // empty tile
+				emptyRow = rc;
+		}
+		if (emptyRow == -1) // column is full
+			throw new IllegalArgumentException(
+					"Move to full column error. Details column: " + col
+							+ "move: " + move);
+		// move is legal so make it
+		board[emptyRow][col] = move.getPlayer();
+	}
 
     /**
      * Return an array of all moves that can possibly be made by Player p on this
