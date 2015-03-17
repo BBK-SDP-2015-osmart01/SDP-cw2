@@ -62,4 +62,23 @@ public class JUnitTestAICreateGameTree {
 
 	}
 
+	@Test
+	public void checkThatWinnerIsALeaf() {
+		// createGameTree specification has an additional instruction
+		// "Note: If s has a winner (four in a row), it should be a leaf."
+		// so lets create a winning board
+		Board winner = board2e;
+		winner.makeMove(new Move(Player.YELLOW, 0));
+		winner.makeMove(new Move(Player.YELLOW, 1)); // yellow has now won
+		// red can play next, does not matter
+		State winnerState = new State(Player.RED, winner, null);
+		// Create tree of this state
+		AI.createGameTree(winnerState, 4);
+		assertThat("winnerState should have no children it should be a leaf!",
+				winnerState.getChildren().length, is(0));
+		System.out.println("checkThatWinnerIsALeaf passes no children:\n");
+		System.out.println(winnerState);
+	
+	}
+
 }
