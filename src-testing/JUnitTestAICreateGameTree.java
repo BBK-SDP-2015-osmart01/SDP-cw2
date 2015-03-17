@@ -51,6 +51,15 @@ public class JUnitTestAICreateGameTree {
 				.println("Good AI.createGameTree(tstate,1) created two children:\n");
 		System.out.println(tstate);
 
+		System.out
+				.println("OK lets try going to depth of 2 this should create:");
+		System.out.println("   depth 1: two children");
+		System.out.println("   depth 2: 2*2 = 4 children");
+		AI.createGameTree(tstate, 2);
+
+		System.out.println("Check following output by eyeball:\n");
+		System.out.println(tstate);
+
 	}
 
 }
