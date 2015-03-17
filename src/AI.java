@@ -71,33 +71,31 @@ public class AI implements Solver {
      * Use the Minimax algorithm to assign a numerical value to each State of the
      * tree rooted at s, indicating how desirable that java.State is to this player.
      * 
-     * @author Daryl Smith
+     * @author Daryl Smith and Oliver Smart
      */
-    public void minimax(State s) 
-    {
-        //if s has no children, set s's value to evaluate s's board and return
+    public void minimax(State s) {
+		// if this is a leaf (no children) evaluate the board and ret
+		if (s.getChildren().length == 0) {
+			s.setValue(evaluateBoard(s.getBoard()));
+			return;
+		}
+
+		// not a leaf so get the minimum or maximum value from the child nodes.
+		
     	//if s has children, recurse through child nodes, calling minimax and picking the best value of the child nodes
-    	if (s.getChildren().length == 0) 
-    	{
-    		s.setValue(evaluateBoard(s.getBoard()));
-    		return;
-    	}
-    	
     	int max = Integer.MIN_VALUE;
     	int min = Integer.MAX_VALUE;
     	
-    	for (int i = 0; i < s.getChildren().length; i++) 
-    	{   		
-    		minimax(s.getChildren()[i]);
-    		if (s.getChildren()[i].getValue() > max) 
-    		{
-    			max = s.getChildren()[i].getValue();
-    		}			
-    		if (s.getChildren()[i].getValue() < min) 
-    		{
-    			min = s.getChildren()[i].getValue();
-    		}			
-    	}
+		for (int i = 0; i < s.getChildren().length; i++) {
+			State child = s.getChildren()[i];
+			minimax(child);
+			if (child.getValue() > max) {
+				max = child.getValue();
+			}
+			if (child.getValue() < min) {
+				min = child.getValue();
+			}
+		}
     	
     	//set best value of s based on who is to play
     	if (s.getPlayer() == this.player) 
