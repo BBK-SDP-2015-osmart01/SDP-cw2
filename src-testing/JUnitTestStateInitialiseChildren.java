@@ -31,8 +31,10 @@ public class JUnitTestStateInitialiseChildren {
 		// first with red in column 0, 2nd with red in column 1 ... 
 		assertThat(testState.getChildren().length, is(7));
 		
-		System.out.println("success testState.initializeChildren() created 7 children\n"
-				+ "testState is now " + testState);
+		System.out.println("\nsuccess testState.initializeChildren() created 7 children");
+		System.out.println("print out testState again and eyeball output,");
+		System.out.println("   first child should have red in column 0, next red in column 1, ...\n");
+		System.out.println(testState);
 		
 		
 	}

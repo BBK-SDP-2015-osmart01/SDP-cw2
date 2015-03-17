@@ -108,9 +108,20 @@ public class State implements Comparable<Object> {
      * children it is the opposite player's turn. This method
      * initializes only this State's children; it does not recursively
      * initialize all descendants.
+     * <p>
+     * @author Daryl Smith
      */
-    public void initializeChildren() {
-        // TODO
+    public void initializeChildren()
+    {
+    	Move[] possibleMoves = this.board.getPossibleMoves(this.player);
+    	State[] possibleStates = new State[possibleMoves.length];
+    	for (int i = 0; i < possibleMoves.length; i++) 
+    	{
+    		possibleStates[i] = new State(this.getPlayer().opponent(),
+    				new Board(this.board, possibleMoves[i]),
+    				possibleMoves[i]);
+    	}
+    	this.children = possibleStates; 
     }
 
     /**
