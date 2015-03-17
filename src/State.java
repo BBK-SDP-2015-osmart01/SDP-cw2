@@ -109,20 +109,21 @@ public class State implements Comparable<Object> {
      * initializes only this State's children; it does not recursively
      * initialize all descendants.
      * <p>
-     * @author Daryl Smith
+     * @author Daryl Smith and Oliver Smart
      */
-    public void initializeChildren()
-    {
-    	Move[] possibleMoves = this.board.getPossibleMoves(this.player);
-    	State[] possibleStates = new State[possibleMoves.length];
-    	for (int i = 0; i < possibleMoves.length; i++) 
-    	{
-    		possibleStates[i] = new State(this.getPlayer().opponent(),
-    				new Board(this.board, possibleMoves[i]),
-    				possibleMoves[i]);
-    	}
-    	this.children = possibleStates; 
-    }
+	public void initializeChildren() {
+		Move[] possibleMoves = board.getPossibleMoves(player);
+		// there will be a child State for each of the possible moves
+		State[] possibleStates = new State[possibleMoves.length];
+		// the next move will be by the opponent
+		Player opponent = getPlayer().opponent();
+		for (int i = 0; i < possibleMoves.length; i++) {
+			Move move = possibleMoves[i];
+			Board boardAfter = new Board(board, move);
+			possibleStates[i] = new State(opponent, boardAfter, move);
+		}
+		children = possibleStates;
+	}
 
     /**
      * Write this State to a file called "output.txt", including its
