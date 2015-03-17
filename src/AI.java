@@ -89,12 +89,9 @@ public class AI implements Solver {
 		for (int i = 0; i < s.getChildren().length; i++) {
 			State child = s.getChildren()[i];
 			minimax(child);
-			if (child.getValue() > max) {
-				max = child.getValue();
-			}
-			if (child.getValue() < min) {
-				min = child.getValue();
-			}
+			int value = child.getValue();
+			max = Math.max(max,value);
+			min = Math.min(min, value);
 		}
     	
     	//set best value of s based on who is to play
