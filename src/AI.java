@@ -73,7 +73,7 @@ public class AI implements Solver {
      * 
      * @author Daryl Smith and Oliver Smart
      */
-    public void minimax(State s) {
+	public void minimax(State s) {
 		// if this is a leaf (no children) evaluate the board and ret
 		if (s.getChildren().length == 0) {
 			s.setValue(evaluateBoard(s.getBoard()));
@@ -81,29 +81,26 @@ public class AI implements Solver {
 		}
 
 		// not a leaf so get the minimum or maximum value from the child nodes.
-		
-    	//if s has children, recurse through child nodes, calling minimax and picking the best value of the child nodes
-    	int max = Integer.MIN_VALUE;
-    	int min = Integer.MAX_VALUE;
-    	
-		for (int i = 0; i < s.getChildren().length; i++) {
-			State child = s.getChildren()[i];
+
+		// if s has children, recurse through child nodes, calling minimax and
+		// picking the best value of the child nodes
+		int max = Integer.MIN_VALUE;
+		int min = Integer.MAX_VALUE;
+
+		for (State child : s.getChildren()) {
 			minimax(child);
 			int value = child.getValue();
-			max = Math.max(max,value);
+			max = Math.max(max, value);
 			min = Math.min(min, value);
 		}
-    	
-    	//set best value of s based on who is to play
-    	if (s.getPlayer() == this.player) 
-    	{
-    		s.setValue(max);
-    	}
-    	else 
-    	{
-    		s.setValue(min);
-    	}
-    }
+
+		// set best value of s based on who is to play
+		if (s.getPlayer() == player) {
+			s.setValue(max);
+		} else {
+			s.setValue(min);
+		}
+	}
 
     /**
      * Evaluate the desirability of Board b for this player
