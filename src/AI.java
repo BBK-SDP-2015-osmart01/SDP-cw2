@@ -43,26 +43,22 @@ public class AI implements Solver {
      * <p/>
      * Note: If s has a winner (four in a row), it should be a leaf.
      * 
-     * @author Daryl Smith 
+     * @author Daryl Smith and Oliver Smart 
      */
-    public static void createGameTree(State s, int d) 
-    {
-        // Note: This method must be recursive, recurse on d,
-        // which should get smaller with each recursive call
-    	
-    	//d = 0: return, d > 0: recurse
-    	if (d == 0) 
-    	{
-    		return;
-    	}
+	public static void createGameTree(State s, int d) {
+		// Note: This method must be recursive, recurse on d,
+		// which should get smaller with each recursive call
+		// d = 0: return
+		if (d == 0)
+			return;
 
+		// d > 0: recurse making d small
 		s.initializeChildren();
-    	for (int i = 0; i < s.getChildren().length; i++) 
-    	{
-    		createGameTree(s.getChildren()[i], d-1);    	
-    	}
-    }
-    
+		for (State itS : s.getChildren()) {
+			createGameTree(itS, d - 1);
+		}
+	}
+  
     /**
      * Call minimax in ai with state s.
      */
