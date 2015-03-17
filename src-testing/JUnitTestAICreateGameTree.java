@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 
 /**
  * Tests for {@link AI#createGameTree}
@@ -55,7 +56,13 @@ public class JUnitTestAICreateGameTree {
 				.println("OK lets try going to depth of 2 this should create:");
 		System.out.println("   depth 1: two children");
 		System.out.println("   depth 2: 2*2 = 4 children");
+
+		// get minimax to fill in values for yellow
 		AI.createGameTree(tstate, 2);
+		AI.minimax(new AI(Player.YELLOW, 2), tstate);
+		assertThat(
+				"minimax unlikely to have propogated value zero to the head",
+				tstate.getValue(), not(0));
 
 		System.out.println("Check following output by eyeball:\n");
 		System.out.println(tstate);
@@ -78,7 +85,7 @@ public class JUnitTestAICreateGameTree {
 				winnerState.getChildren().length, is(0));
 		System.out.println("checkThatWinnerIsALeaf passes no children:\n");
 		System.out.println(winnerState);
-	
+
 	}
 
 }
