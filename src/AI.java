@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,12 +25,31 @@ public class AI implements Solver {
     }
 
     /**
+     *  {@inheritDoc}
+     *  
      * See Solver.getMoves for the specification.
+     * 
+     * @author Daryl Smith
      */
     @Override
-    public Move[] getMoves(Board b) {
-        // TODO
-        return null;
+    public Move[] getMoves(Board b) 
+    {
+    	//setup the move tree for this board, then determine the best possible move(s)
+    	State moveState = new State(this.player, b, null);
+    	createGameTree(moveState, depth);
+    	minimax(moveState);
+
+    	//produce list of move(s) with the highest rating
+    	ArrayList<Move> myMoves = new ArrayList<Move>();
+    	for (int i = 0; i < moveState.getChildren().length; i ++) 
+    	{
+    		if (moveState.getChildren()[i].getValue() == moveState.getValue()) 
+    		{
+    			myMoves.add(moveState.getChildren()[i].getLastMove());
+    		}
+    	}
+    	
+    	return myMoves.toArray(new Move[0]);   	
     }
 
     /**
