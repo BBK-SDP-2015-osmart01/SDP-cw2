@@ -29,28 +29,27 @@ public class AI implements Solver {
      *  
      * See Solver.getMoves for the specification.
      * 
-     * @author Daryl Smith
+     * @author Daryl Smith and Oliver Smart
      */
     @Override
-    public Move[] getMoves(Board b) 
-    {
-    	//setup the move tree for this board, then determine the best possible move(s)
-    	State moveState = new State(this.player, b, null);
-    	createGameTree(moveState, depth);
-    	minimax(moveState);
+	public Move[] getMoves(Board b) {
+		// setup the move tree for this board
+		State moveState = new State(player, b, null);
+		createGameTree(moveState, depth);
+		// then determine the best possible move(s)
+		minimax(moveState);
+		// moveState.getValue() is the value of the best move(s). 
+		// need to select it or them.
 
-    	//produce list of move(s) with the highest rating
-    	ArrayList<Move> myMoves = new ArrayList<Move>();
-    	for (int i = 0; i < moveState.getChildren().length; i ++) 
-    	{
-    		if (moveState.getChildren()[i].getValue() == moveState.getValue()) 
-    		{
-    			myMoves.add(moveState.getChildren()[i].getLastMove());
-    		}
-    	}
-    	
-    	return myMoves.toArray(new Move[0]);   	
-    }
+		// go through children
+		List<Move> myMoves = new ArrayList<Move>();
+		for (State child : moveState.getChildren()) {
+			if (child.getValue() == moveState.getValue()) {
+				myMoves.add(child.getLastMove());
+			}
+		}
+		return myMoves.toArray(new Move[0]);
+	}
 
     /**
      * Generate the game tree with root s of depth d.
