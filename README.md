@@ -13,7 +13,8 @@ in provided `Game.java`  *Testing is difficult using a JUnit testing class becau
 * Once the development work had been completed testing was continued by playing a number of games against the AI with a depth of 6. The conclusion was that the AI plays a much better game of connect4 than either of us.
 * To test a bit further a program was developed to play a tournament of 300 games pitching the "dummy" random piece placing player vs the AI: [Tournament](src-testing/Tournament.java).
   * the depth of the minimax tree was introduced as a variable and results plotted:
-  * ![graphs][test-results/Tournament_dummy_vs_ai.png]
+  * ![graphs][test-results/Tournament_dummy_vs_ai.png?raw=true]
+  * [png version](test-results/Tournament_dummy_vs_ai.png)
   * conclusion: the AI plays very much better than the dummy. The depth of 1 or 2 is enough to win > 90% of the time. At a depth of 4
     the AI wins 100% of the time. CPU requires start to rise at a depth of 4.
   * If there was more time would do tournament of AI depth=1 vs AI varying depth
