@@ -19,7 +19,12 @@ public class Tournament {
 		for (int gc = 0; gc < NGAMES; gc++) {
 			Solver p1 = new Dummy(Player.RED);
 			Solver p2 = new AI(Player.YELLOW, 1);
-			Game game = new Game(p1, p2);
+			// take turns who goes first to be fair
+			Game game;
+			if (gc%2==0) 
+				game = new Game(p1, p2);
+			else
+				game = new Game(p2, p1);
 			game.runGame();
 			Player winner = game.getWinner();
 			if (winner.equals(Player.RED))
@@ -30,7 +35,7 @@ public class Tournament {
 				nDraw++;
 		}
 		// print to STDERR so we can discard STDOUT to /dev/null!
-		System.err.println("\n\nResults ran " + NGAMES);
+		System.err.println("\n\nResults ran " + NGAMES + " games");
 		System.err.println("red won \t" + nWinRed + "\t games = \t"
 				+ (100. * (double) nWinRed) / ((double) NGAMES) + " %");
 		System.err.println("yellow won \t" + nWinYellow + "\t games = \t"
