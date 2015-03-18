@@ -40,7 +40,7 @@ public class Tournament {
 					nDraw++;
 			}
 			// print to STDERR so we can discard STDOUT to /dev/null!
-			System.err.println("\n\nResults ran " + NGAMES + " games");
+			System.err.println("\n\nResults ran " + NGAMES + " games, with RED depth " + depth);
 			System.err.println("red won \t" + nWinRed + "\t games = \t"
 					+ (100. * (double) nWinRed) / ((double) NGAMES) + " %");
 			System.err.println("yellow won \t" + nWinYellow + "\t games = \t"
