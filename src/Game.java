@@ -30,10 +30,10 @@ public class Game {
          * the second argument of the constructor is the depth to which AI
          * searches the game space. */
         Solver p1 = new Dummy(Player.RED);
-        Solver p2 = new Dummy(Player.YELLOW);
+        //Solver p2 = new Dummy(Player.YELLOW);
 
         // Solver p1= new AI(Board.Player.RED, 5);
-        // Solver p2= new AI(Board.Player.YELLOW, 5);
+        Solver p2= new AI(Player.YELLOW, 1);
 
         Game game = new Game(p1, p2);
         game.runGame();
@@ -231,5 +231,13 @@ public class Game {
         }
 
         return true;
+    }
+    
+    /**
+     * Getter for winner needed for {@link Tournament}
+     * @return the winner of a game
+     */
+    public Player getWinner() {
+    	return winner;
     }
 }
