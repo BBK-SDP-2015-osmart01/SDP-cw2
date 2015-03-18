@@ -1,14 +1,15 @@
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-
 /**
- * Additonal tests for AI.minmax
+ * Additional tests for AI.minmax
  * <p>
- * Just printing out information to console and eyeball check that values
+ * Start just printing out information to console and eyeball check that values
  * correctly go up tree.
+ * 
+ * Add junit asserts once behaviour is established.
  * 
  */
 public class JUnitTestAIMinMax {
@@ -40,6 +41,9 @@ public class JUnitTestAIMinMax {
 		AI.createGameTree(tstate, 3);
 		AI.minimax(new AI(Player.YELLOW, 3), tstate);
 		System.out.println(tstate);
+		// JUnit check for normal behaviour, after eyeball
+		assertTrue("\nyellow winning next move should result in a large +ve value\n"
+				+ "but tstate.getValue()= "+ tstate.getValue(),  tstate.getValue()>1000);
 	}
 
 	@Test
@@ -49,6 +53,8 @@ public class JUnitTestAIMinMax {
 		AI.createGameTree(tstate, 2);
 		AI.minimax(new AI(Player.RED, 2), tstate);
 		System.out.println(tstate);
+		assertTrue("\nyellow blocking next move should result in a small -ve value\n"
+				+ "but tstate.getValue()= "+ tstate.getValue(),  tstate.getValue()<0);
 	}
 
 
