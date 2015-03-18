@@ -37,8 +37,8 @@ public class GUI extends JFrame {
     	//Solver p1= new AI(Player.RED, 6);
 
         //Solver p2 = new Dummy(Player.YELLOW);
-    	Solver p2= new Human(Player.YELLOW);
-        //Solver p2 = new Dummy(Player.YELLOW);
+        //Solver p2= new Human(Player.YELLOW);
+        Solver p2 = new AI(Player.YELLOW, 6);
 
         /* --------------------------------- Do not change below here. --------------------------------- */
 
