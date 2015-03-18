@@ -34,11 +34,11 @@ public class JUnitTestAIGetMoves {
 		// should be able to work out how to win with depth 1
 		AI ai = new AI(Player.YELLOW, 1);
 		Move getMoves[] = ai.getMoves(board2w);
-		Move expectedMoves[] = { new Move(Player.YELLOW, 1) };
+		Move expectedMove0 = new Move(Player.YELLOW, 1);
 		assertThat("\nboard is: \n" + board2w
 				+ "so yellow can win by playing column 1.\n"
-				+ "but getMoves() ....", getMoves,
-				is(expectedMoves));
+				+ "but getMoves() ....", getMoves[0]+"",
+				is(expectedMove0+""));
 	}
 
 	@Test
@@ -46,11 +46,11 @@ public class JUnitTestAIGetMoves {
 		// should be able to work out how to block with depth 2?
 		AI ai = new AI(Player.RED, 1);
 		Move getMoves[] = ai.getMoves(board2w);
-		Move expectedMoves[] = { new Move(Player.RED, 1) };
+		Move expectedMove0 = new Move(Player.RED, 1);
 		assertThat("\nboard is: \n" + board2w
 				+ "so red must block by playing column 1.\n"
-				+ "but getMoves() ....", getMoves,
-				is(expectedMoves));
+				+ "but getMoves() ....", getMoves[0]+"",
+				is(expectedMove0+""));
 	}
 
 }
